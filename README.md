@@ -1,4 +1,4 @@
-# cardiGAN : generating echocardiograms with SPADE algorithm
+# cardiGAN : Echocardiogram generation using SPADE algorithm
 
 Corentin Vannier & Ulysse Rancon
 
