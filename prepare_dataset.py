@@ -21,18 +21,23 @@ for set in ['train', 'test', 'valid']:
     new_dset = set + '_4CH_FD.hdf5'
     i = 0  # file counter
 
-    with h5py.File(new_dset, 'w') as newfile:
+    with h5py.File(new_dset, 'w') as newdatafile:
+        with h5py.File("anno_" + new_dset, 'w') as newannofile:
 
-        for patient in f[set]:
+            for patient in f[set]:
 
-            image = f[set][patient]['4CH']['im'][0, :, :, :]  # image du patient - 4 chambres - fin diastole (canal 0 seulement)
-            newfile.create_dataset(patient, data=image)
-            i += 1
+                image = f[set][patient]['4CH']['im'][0, :, :, :]  # image du patient - 4 chambres - fin diastole (canal 0 seulement)
+                mask = f[set][patient]['4CH']['gt'][0, :, :]  # masque correspondant
+                newdatafile.create_dataset(patient, data=image)
+                newannofile.create_dataset(patient, data=mask)
+                i += 1
 
-        print('finished gathering ' + set + ' set')
-        print(str(i) + ' images written in ' + new_dset)
-        print('\n')
-        newfile.close()
+            print('finished gathering ' + set + ' set')
+            print(str(i) + ' images written in ' + new_dset)
+            print('\n')
+
+            newannofile.close()
+        newdatafile.close()
 
 f.close()
 
