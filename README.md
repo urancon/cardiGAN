@@ -41,9 +41,11 @@ dataset_camus (hdf5 file)
     ...
 ```
 
-There are 500 patients, each of them gather
-Image shape is (2, 256, 256), the first channel being for the end of diastolic instant, and the second for the end of the systolic 
+There are 500 patients, each of them gathering 2 planes of acquisition, showing either 2 or 4 chambers (denoted by '2CH' and '4CH').
+Within each of these subfolders, **im** represents the actual image captured, and **gt** its corresponding mask. Both have 
+shape of (2, 256, 256), the first channel being for the end of diastolic instant, and the second for the end of the systolic 
 instant.
+**im_ref** and **gt_ref** are just raw data before it was resized to 256x256; we don't use them in our case.
 
 In a first step, we will try and train a GAN on to produce "false" echocardiograms of 4-chambers view. For this purpose, 
 we had to modify the dataset to keep only the relevant information. That is, _channel n°0 of 4CH/im and 4Ch/gt for all patients_.
