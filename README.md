@@ -22,29 +22,34 @@ as of October 2020.
 The original dataset has the following architecture:
 
 ```shell script
-dataset_camus (hdf5 file)
-  |
-  |___ train
-  |    |
-  |    |___ patient0001   
-  |    |    |
-  |    |    |___ 2CH
-  |    |    |    |___ gt
-  |    |    |    |___ gt_ref
-  |    |    |    |___ im
-  |    |    |    |___ im_ref
-  |    |    |
-  |    |    |___ 4CH
-  |    |    |    |___ gt
-  |    |    |    |___ gt_ref
-  |    |    |    |___ im
-  |    |    |    |___ im_ref
-  |    | 
-  |    |___ ...
-  |
-  |___ test
-  |
-  |___ valid
+.hdf5 file
+ |
+ |___ train
+ |    |
+ |    |___ patient0001   
+ |    |    |
+ |    |    |___ 2CH
+ |    |    |    |___ gt
+ |    |    |    |___ gt_ref
+ |    |    |    |___ im
+ |    |    |    |___ im_ref
+ |    |    |
+ |    |    |___ 4CH
+ |    |         |___ gt
+ |    |         |___ gt_ref
+ |    |         |___ im
+ |    |         |___ im_ref
+ |    | 
+ |    |___ ...
+ |
+ |___ test
+ |    |
+ |    |___ ...
+ |
+ |___ valid
+      |
+      |___ ...
+
 ```
 
 There are 500 patients, each of them gathering 2 planes of acquisition, showing either 2 or 4 chambers (denoted by '2CH' and '4CH').
