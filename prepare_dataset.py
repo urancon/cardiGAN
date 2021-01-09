@@ -1,12 +1,8 @@
-# script to prepare a subset of CAMUS dataset to train our GAN with NVLab's GauGAN/SPADE implementation
-# subset : (4 chambers - end of diastole + end of systole)
+# Format the CAMUS dataset for NVlabs/SPADE
 
-# Input: original CAMUS dataset hdf5 file
-# Output: three separate folders ('train', 'test', 'valid') each containing ('img', 'label') sub-folders
-# filled with .png images. Actual images are 3-channel RGB, while annotation files / raw mhd have only 1 channel
-
-# this dataset format is required by NVLab's GauGAN/SPADE repo to train a network on.
-
+# Input: CAMUS .hdf5 file
+# Output: three separate folders ('train', 'test', 'valid') each containing two sub-folders ('img', 'label')
+# Images are exported to 3-channel .png, and labels to 1-channel .png
 
 import os
 import h5py
@@ -39,32 +35,16 @@ for subset in ['train', 'test', 'valid']:
     i = 0  # file counter
 
     for patient in tqdm(f[subset]):
+        for view in f[subset][patient]:
+            for instant in [0, 1]:
+                image = f[subset][patient][view]['im'][instant, :, :, :]  # image
+                mask = f[subset][patient][view]['gt'][instant, :, :]  # corresponding mask
+                image = 255 * np.repeat(image.reshape(256, 256, 1), 3, axis=2)  # must convert 1 channel to 3-channel RGB array
 
-        fch_ed_image = f[subset][patient]['4CH']['im'][0, :, :, :]  # 4 chambers - end of diastole (channel 0)
-        fch_ed_mask = f[subset][patient]['4CH']['gt'][0, :, :]  # corresponding mask
-        fch_ed_image = 255 * np.repeat(fch_ed_image.reshape(256, 256, 1), 3, axis=2)  # must convert 1 channel to 3-channel RGB array
-        cv2.imwrite(img_path + patient + '_4CH_ED_img.png', fch_ed_image)
-        cv2.imwrite(label_path + patient + '_4CH_ED_img.png', fch_ed_mask)
-
-        fch_es_image = f[subset][patient]['4CH']['im'][1, :, :, :]  # 4 chambers - end of systole (channel 1)
-        fch_es_mask = f[subset][patient]['4CH']['gt'][1, :, :]  # corresponding mask
-        fch_es_image = 255 * np.repeat(fch_es_image.reshape(256, 256, 1), 3, axis=2)  # must convert 1 channel to 3-channel RGB array
-        cv2.imwrite(img_path + patient + '_4CH_ES_img.png', fch_es_image)
-        cv2.imwrite(label_path + patient + '_4CH_ES_img.png', fch_es_mask)
-
-        tch_ed_image = f[subset][patient]['2CH']['im'][0, :, :, :]  # 2 chambers - end of diastole (channel 0)
-        tch_ed_mask = f[subset][patient]['2CH']['gt'][0, :, :]  # corresponding mask
-        tch_ed_image = 255 * np.repeat(tch_ed_image.reshape(256, 256, 1), 3, axis=2)  # must convert 1 channel to 3-channel RGB array
-        cv2.imwrite(img_path + patient + '_2CH_ED_img.png', tch_ed_image)
-        cv2.imwrite(label_path + patient + '_2CH_ED_img.png', tch_ed_mask)
-
-        tch_es_image = f[subset][patient]['2CH']['im'][1, :, :, :]  # 2 chambers - end of systole (channel 1)
-        tch_es_mask = f[subset][patient]['2CH']['gt'][1, :, :]  # corresponding mask
-        tch_es_image = 255 * np.repeat(tch_es_image.reshape(256, 256, 1), 3, axis=2)  # must convert 1 channel to 3-channel RGB array
-        cv2.imwrite(img_path + patient + '_2CH_ES_img.png', tch_es_image)
-        cv2.imwrite(label_path + patient + '_2CH_ES_img.png', tch_es_mask)
-
-        i += 4
+                file_end = '_ED_img.png' if instant == 0 else '_ES_img.png'
+                cv2.imwrite(img_path + patient + '_' + view + file_end, image)
+                cv2.imwrite(label_path + patient + '_' + view + file_end, mask)
+                i += 1
 
     print('finished gathering ' + subset + ' set')
     print(str(i) + ' images written in ' + subset)
