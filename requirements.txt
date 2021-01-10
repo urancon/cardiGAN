@@ -1,19 +1,19 @@
-# requirements and python dependencies here
+# General purpose packages
+h5py
+numpy
+tqdm
+umap-learn
+matplotlib
+opencv-python
 
-# general purpose
-h5py~=2.10.0
-numpy~=1.19.2
-tqdm~=4.50.2
-opencv-python~=4.4.0.44
-
-# SPADE
-torch>=1.0.0
+# SPADE packages
+torch
 torchvision
-dominate>=2.3.1
+dominate
 dill
 scikit-image
 
-# tensorboard
+# Tensorboard packages
 tensorflow==1.15.0
 scipy==1.2.0
 pillow==6.1.0
