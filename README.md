@@ -13,8 +13,8 @@ More information about the project and how to run it can be found in the Jupyter
 
 ## About the dataset
 
-We are using the CAMUS (Cardiac Acquisitions for Multi-structure Ultrasound Segmentation) dataset and consists of 
-clinical exams from 500 patients, acquired at the University Hospital of St Etienne (France).
+We are using the CAMUS (Cardiac Acquisitions for Multi-structure Ultrasound Segmentation) dataset.
+It consists of clinical exams from 500 patients, acquired at the University Hospital of St Etienne (France).
 
 The dataset is available [here](https://www.creatis.insa-lyon.fr/Challenge/camus/databases.html), and there is currently a [challenge](http://camus.creatis.insa-lyon.fr/challenge/#challenges) running on it. It has the following architecture:
 
@@ -28,6 +28,7 @@ The dataset is available [here](https://www.creatis.insa-lyon.fr/Challenge/camus
 │   │   │   ├── im
 │   │   │   └── im_ref
 │   │   └── 4CH
+│   │   │   └── ...
 │   ├── patient0002
 │   └── ...
 ├── test
