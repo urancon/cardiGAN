@@ -1,4 +1,4 @@
-# cardiGAN : Echocardiogram generation using SPADE
+# cardiGAN: Towards better echocardiogram segmentation by data generation using SPADE
 
 INSA Lyon - TDSI - Binôme 10
 
