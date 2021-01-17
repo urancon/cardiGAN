@@ -51,11 +51,11 @@ For both of those planes, `im` contains the echocardiography picture, and `gt` i
 ## Citation
 
 If you happen to like our work, here is a citation record you can use:
-'''
+```latex
 @ARTICLE{cardiGAN,
-       author = {{Rancon} Ulysse and {Vannier} Corentin},
+       author = {{Rancon} Ulysse and {Vannier} Corentin and {Bernard} Olivier},
         title = "{CardiGAN: towards better echocardiogram segmentation by data generation using SPADE}",
          year = 2021,
-        month = jan,
+        month = jan
 }
-'''
+```
