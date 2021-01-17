@@ -54,7 +54,7 @@ If you happen to like our work, here is a citation record you can use:
 ```latex
 @ARTICLE{cardiGAN,
        author = {{Rancon} Ulysse and {Vannier} Corentin and {Bernard} Olivier},
-        title = "{CardiGAN: towards better echocardiogram segmentation by data generation using SPADE}",
+        title = {CardiGAN: towards better echocardiogram segmentation by data generation using SPADE},
          year = 2021,
         month = jan
 }
